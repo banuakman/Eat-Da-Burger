@@ -9,8 +9,9 @@ img {
 h1 {
     color: white;
     text-align: center;
-    background-color: #460000;
+    background-color: #cb6735;
     padding: 10px;
+    border-radius: 50px 50px 10px 10px;
 }
   
 li {
@@ -34,7 +35,7 @@ h2 {
     color: #460000;
     text-align: center;
 }
-  
+
 #submitBtn {
     color: white;
     background-color: #bb222c;
@@ -56,4 +57,11 @@ h2 {
     text-align: center;
     border-radius: 50px;
 }
-  
+
+h5 {
+    color: white;
+    text-align: center;
+    background-color: #cb6735;
+    padding: 10px;
+    border-radius: 50px 50px 10px 10px;
+}
