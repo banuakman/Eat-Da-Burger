@@ -1,0 +1,93 @@
+document.addEventListener("DOMContentLoaded", (event) => {
+    if (event) {
+        console.info("DOM loaded");
+    }
+
+    // UPDATE
+    const changeDevourBtns = document.querySelectorAll(".change-status");
+    
+    // Set up the event listener for the create button
+    if (changeDevourBtns) {
+        changeDevourBtns.forEach((button) => {
+            button.addEventListener("click", (e) => {
+                console.log("test");
+                const id = e.target.getAttribute("data-id");
+                const newStatus = e.target.getAttribute("data-status");
+                    const newState = {
+                    devoured: newStatus,
+                };
+
+                fetch(`/api/burgers/${id}`, {
+                    method: "PUT",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(newState),
+                    }).then((response) => {
+                        if (response.ok) {
+                        console.log(`changed status to: ${newStatus}`);
+                        location.reload("/");
+                    } else {
+                        alert("something went wrong!");
+                    }
+                });
+            });
+        });
+    }    
+    // DELETE
+    const deleteBurgerBtns = document.querySelectorAll(".remove-burger");
+  
+    deleteBurgerBtns.forEach((button) => {
+      button.addEventListener("click", (e) => {
+        const id = e.target.getAttribute("data-id");
+        console.log("delete burger id", id);
+  
+        fetch(`/api/burgers/${id}`, {
+          method: "DELETE",
+        }).then((res) => {
+          console.log(res);
+          console.log(`Deleted ID: ${id}`);
+  
+          if (res.ok) {
+            location.reload();
+          }
+  
+          // Reload the page
+        });
+      });
+    });
+  
+    // CREATE
+    const createBurgerBtn = document.getElementById("create-form");
+  
+    if (createBurgerBtn) {
+      createBurgerBtn.addEventListener("submit", (e) => {
+        e.preventDefault();
+  
+        const newBurger = {
+          name: document.getElementById("burg").value.trim(),
+        };
+  
+        // Send POST request to create a new quote
+        fetch("/api/burgers", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+  
+          // make sure to serialize the JSON body
+          body: JSON.stringify(newBurger),
+        }).then(() => {
+          // Empty the form
+          document.getElementById("burg").value = "";
+  
+          // Reload the page so the user can see the new quote
+          console.log("Created a new burger!");
+          location.reload();
+        });
+      });
+    }
+  });
+  
